@@ -7,11 +7,12 @@ public class Ej15 {
     public static final double probabilidad_numero = 0.4;
 
     public static void main(String[] args) {
+        int ini = 0;
         
         int arr[] = new int[MAX];
         cargar_arreglo_aleatorio_secuencias_int(arr);
         imprimir_arreglo_secuencias_int(arr);
-        int ini= obtener_inicio_secuencia(arr, MINVALOR);
+        ini= obtener_inicio_secuencia(arr, MINVALOR);
         int fin=obtener_fin_secuencia(arr, ini);
         System.out.println("La primer secuncia empieza en: " + ini + " y termina en: " + fin);
         
