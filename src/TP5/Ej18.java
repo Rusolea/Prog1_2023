@@ -1,4 +1,6 @@
-package TP5;
+//18. Hacer un programa que devuelva la posición de inicio y de fin
+//de la secuencia de mayor tamaño.
+    package TP5;
 
 import java.util.Random;
 
