@@ -1,4 +1,6 @@
-package TP5;
+//Hacer un programa que devuelva la posición de inicio y fin de la
+//anteúltima secuencia de números distintos de ceros.
+    package TP5;
 
 import java.util.Random;
 
