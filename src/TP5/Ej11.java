@@ -51,6 +51,8 @@ public class Ej11 {
         for (int i=0; i<MAX; i++){
             if(arr[i]==numero){
                corrimiento_izquierda(arr, i);
+                i=0; //El i=0 reinicia el bucle y garantiza que se vuelva a verificar desde la posición inicial en cada iteración, permitiendo que se eliminen todas las ocurrencias.
+                //Es una buena solución para evitar que se queden números residuales después de un corrimiento cuando hay ocurrencias consecutivas.
             }
         }
     }
