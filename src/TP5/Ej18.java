@@ -51,12 +51,8 @@ public class Ej18 {
     }
 
     public static int sumarLongitudesDeCadaSecuencia(int[] arr, int ini, int fin) {
-        int longitud = 0;
-        for (int i = ini; i < fin; i++) {
-            longitud = (fin - ini) + 1;
-        }
-        return longitud;
-    }
+    return fin - ini + 1;
+}
 
     public static void compararLongitudesDeCadaSecuencia(int[] arr) {
         int ini = 0;
