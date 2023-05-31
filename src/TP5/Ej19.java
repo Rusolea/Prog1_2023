@@ -1,3 +1,6 @@
+//19. Hacer un programa que dado un número N ingresado por el
+//usuario, elimine las secuencias de tamaño N de números distintos
+//de cero.
 package TP5;
 
 import java.util.Random;
@@ -70,11 +73,8 @@ public class Ej19 {
     }
 
     public static int obtenerLongitudesDeCadaSecuencia(int[] arr, int ini, int fin) {
-        int longitud = 0;
-        for (int i = ini; i <= fin; i++) {
-            longitud = (fin - ini) + 1;
-        }
-        return longitud;
+        return fin - ini + 1;
+
     }
 
     public static void corrimientoIzquierda(int[] arr, int pos) {
@@ -98,7 +98,7 @@ public class Ej19 {
             fin = obtenerFin(arr, ini);
             int longitud = obtenerLongitudesDeCadaSecuencia(arr, ini, fin);
             if (numero == longitud) {
-               eliminarSecuencia(arr, ini, fin);
+                eliminarSecuencia(arr, ini, fin);
                 fin = ini;
             }
 
