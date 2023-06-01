@@ -1,5 +1,3 @@
-package TP5;
-
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,8 +14,9 @@ public class Ej27 {
         imprimir_arreglo_int(arr);
         int numero = obtenerNumeroUsuario();
         int pos = buscarPosicionDeNumeroIngresado(arr, numero);
-        System.out.println("El numero ingresado (" + numero + ") iria en la posicion: " + pos);
-        corrimientoDerecha(arr, pos, numero);
+        System.out.println("El numero ingresado (" + numero + ") irá en la posición: " + pos);
+        corrimientoDerecha(arr, pos);
+        arr[pos] = numero;
         imprimir_arreglo_int(arr);
     }
 
@@ -29,20 +28,20 @@ public class Ej27 {
     }
 
     public static void imprimir_arreglo_int(int[] arr) {
+        System.out.print("Arreglo: ");
         for (int pos = 0; pos < MAX; pos++) {
-            System.out.println("nombre_arreglo[" + pos + "]=>: " + arr[pos]);
+            System.out.print(arr[pos] + " ");
         }
+        System.out.println();
     }
 
     public static int obtenerNumeroUsuario() {
         int numero = 0;
         BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
         try {
-            System.out.println("Ingrese un numero. Será agregado en el arreglo de forma creciente.");
+            System.out.println("Ingrese un número. Será agregado en el arreglo de forma creciente.");
             numero = Integer.valueOf(entrada.readLine());
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return numero;
@@ -50,25 +49,22 @@ public class Ej27 {
 
     public static int buscarPosicionDeNumeroIngresado(int[] arr, int numero) {
         int pos = 0;
-        while (arr[pos] < numero && pos < numero) {
+        while (pos < MAX && arr[pos] < numero) {
             pos++;
         }
         return pos;
     }
 
-    public static void corrimientoDerecha(int[] arr, int pos, int numero) {
-        int indice = MAX - 1;
-        while (indice > pos) {
-            arr[indice] = arr[indice - 1];
-            indice--;
+    public static void corrimientoDerecha(int[] arr, int pos) {
+        for (int i = MAX - 1; i > pos; i--) {
+            arr[i] = arr[i - 1];
         }
-        arr[pos]=numero;
     }
 
     public static void ordenarArregloCreciente(int[] arr) {
         int aux;
         for (int i = 0; i < MAX; i++) {
-            for (int j = i; j < MAX; j++) {
+            for (int j = i + 1; j < MAX; j++) {
                 if (arr[i] > arr[j]) {
                     aux = arr[i];
                     arr[i] = arr[j];
@@ -77,5 +73,4 @@ public class Ej27 {
             }
         }
     }
-
 }
