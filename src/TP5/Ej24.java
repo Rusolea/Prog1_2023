@@ -1,3 +1,11 @@
+//24. Se tiene un arreglo de enteros de tamaño 20 de secuencias de
+//números entre 1 y 9, separadas por 0. El arreglo está precargado,
+//y además empieza y termina con uno o más separadores 0. Hacer
+//un programa que permita obtener a través de métodos la posición
+//de inicio y la posición de fin de la secuencia ubicada a partir de
+//una posición entera ingresada por el usuario. Finalmente, si
+//existen imprima por pantalla ambas posiciones obtenidas.
+
 package TP5;
 
 import java.util.Random;
@@ -10,7 +18,7 @@ public class Ej24 {
     public static final double probabilidad_numero = 0.4;
 
     public static void main(String[] args) {
-        int arr[] = new int[MAX];
+        int[] arr = new int[MAX];
         cargar_arreglo_aleatorio_secuencias_int(arr);
         imprimir_arreglo_secuencias_int(arr);
         int numero = obtenerNumeroUsuario();
@@ -69,16 +77,24 @@ public class Ej24 {
     public static void obtenerSecuenciaAPartirDePos(int[] arr,  int numero) {
         int ini = 0;
         int fin = -1;
-        while (ini < MAX) {
+        boolean secuenciaEncontrada = false;
+
+        while (ini < MAX && !secuenciaEncontrada) {
             ini = obtenerIni(arr, fin + 1);
             fin = obtenerFin(arr, ini);
             if (numero >= ini && numero <= fin) {
-                System.out.println("La posicion ingresada: (" + numero + ") se encuentra en la secuencia con INICIO: "
-                        + ini + " y con FIN: " + fin);
-            break;
+                secuenciaEncontrada = true;
             }
-            fin = ini;
         }
 
+        if (secuenciaEncontrada) {
+            System.out.println("La posición ingresada: (" + numero + ") se encuentra en la secuencia con INICIO: "
+                    + ini + " y con FIN: " + fin);
+        } else {
+            System.out.println("La posición ingresada: (" + numero + ") no se encuentra en ninguna secuencia.");
+        }
     }
-}
+
+
+    }
+
