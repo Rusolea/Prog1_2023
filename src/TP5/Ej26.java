@@ -74,10 +74,17 @@ public class Ej26 {
     }
 
     public static void reemplazo(char[] A, char[] B, int inicioA, int inicioB, int finA, int finB) {
-        for (int i = inicioA; i <= finA; i++) {
-                A[i] = B[inicioB-inicioA+i];
+    int indiceB = inicioB;
+    for (int i = inicioA; i <= finA; i++) {
+        if (indiceB <= finB) {
+            A[i] = B[indiceB];
+            indiceB++;
+        } else {
+            A[i] = ' ';
         }
     }
+}
+
 
     public static void reemplazoBenA(char A[], char B[]) {
         int inicioA = obtenerIniSecuenciaMasRepetidaDeA(A);
