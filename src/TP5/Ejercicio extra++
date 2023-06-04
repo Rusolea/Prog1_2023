@@ -1,0 +1,113 @@
+
+//Ejercicio extra++
+//Implementar un programa que, dado un arreglo de enteros, elimine todas las secuencias que tienen al
+//menos un múltiplo de 2 y cuyo tamaño es impar.
+//Ejercicio extra++
+//
+//0 8 4 -2 0 10 5 0 1 25 3 0
+//¿Cuál debería ser el resultado?
+//0 0 10 5 0 1 25 3 0 0 0 0
+//¿Cómo podemos dividir el problema?
+//1. Recorrer secuencia a secuencia
+//a. Encontrar el inicio de la secuencia
+//b. Encontrar el fin de la secuencia
+//2. Por cada secuencia, realizar procesamiento
+//a. ¿La secuencia debe cumplir algún criterio para
+//ser procesada?
+//b. Procesamiento
+//c. Si el procesamiento modificó el tamaño de la
+//secuencia, modificar los índices
+//3. Mostrar los resultados (si es necesario)
+public class arglosExtra3 {
+    public static final int MAX = 12;
+    public static final int SEPARADOR = 0;
+
+    public static void main(String[] args) {
+        int[] arr = {0, 8, 4, -2, 0, 10, 5, 0, 1, 25, 3, 0};
+
+        imprimirArreglo(arr);
+        procesarCesacuencia(arr);
+
+    }
+
+    public static void procesarCesacuencia(int[] arr) {
+        //buscar ini
+        //buscar fin
+        //contar secuancia para luego ver con if si es par y procesarla
+        //verificar si la secuencia tiene al menos un nuemero par
+        //si lo tiene elimir con corrimiento izquieda la secuencia
+        //imprimr el resultado
+
+        //elimine todas las secuencias que tienen al
+        //menos un múltiplo de 2 y cuyo tamaño es impar.
+        int ini = 0;
+        int fin = -1;
+        int contador = 0;
+
+        while (ini < MAX) {
+            ini = buscarIni(arr, fin + 1);
+            if (ini < MAX) {
+                fin = buscarFin(arr, ini);
+                contador++;
+                if (contador % 2 != 0) {
+                    if (tieneNumeroPar(arr, ini, fin)) {//boolean
+                        eliminarSecuencia(arr, ini, fin);
+                    }
+
+                }
+
+            }
+
+        }
+
+        imprimirArreglo(arr);
+
+    }
+
+    public static boolean tieneNumeroPar(int[] arr, int ini, int fin) {
+        for (int i = ini; i <= fin; i++) {
+            if (arr[i] % 2 == 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    private static void eliminarSecuencia(int[] arr, int ini, int fin) {
+        for (int i = ini; i <= fin; i++)
+            corrimientoIzquierda(arr, ini);
+    }
+
+
+    public static void corrimientoIzquierda(int[] arr, int pos) {
+        for (int i = pos; i < MAX - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+    }
+
+
+    public static void imprimirArreglo(int[] arr) {
+        System.out.println();
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + ",");
+        }
+    }
+
+    public static int buscarIni(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] == SEPARADOR) {
+            pos++;
+
+        }
+        return pos;
+    }
+
+    public static int buscarFin(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] != SEPARADOR) {
+            pos++;
+        }
+        return pos - 1;
+    }
+}
+
+
