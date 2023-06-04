@@ -1,0 +1,93 @@
+
+//Determinar el inicio y fin de la secuencia que más números pares tiene (si hay más de una, quedarse con la
+//primera)
+//
+//0 2 4 5 0 8 0 17 20 22 0
+public class arreglosDeSecuencias1 {
+    //public static final int MAX = 11;
+    public static final int MAX = 20;//MAX de prueba
+    public static final int SEPARADOR = 0;
+
+
+    public static void main(String[] args) {
+        //int[] arr = {0,2,4,5,0,8,0,17,20,22,0};
+        int[] arr = {0, 2, 4, 5, 0, 8, 0, 17, 20, 22, 0, 2, 4, 6, 8, 0, 8, 4, 9, 0};//secuancia de prueba
+
+        determinarSecuencia(arr);
+        imprimerSecuencia(arr);
+    }
+
+    public static void determinarSecuencia(int[] arr) {
+        int ini = 0;
+        int fin = -1;
+        int contadorPares = 0;
+        int inicioMax = 0;
+        int finMax = 0;
+        int maxPares = 0;
+
+        while (ini < MAX) {
+            ini = buscarIni(arr, fin + 1);
+            if (ini < MAX) {
+                fin = buscarFin(arr, ini);
+
+                contadorPares = contarPares(arr, ini, fin, contadorPares);
+                if (contadorPares > maxPares) {
+                    maxPares = contadorPares;
+                    inicioMax = ini;
+                    finMax = fin;
+                }
+            }
+        }
+        System.out.println("La secuencia con más números pares es:");
+        for (int i = inicioMax; i <= finMax; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+        System.out.println("El incio de secuencia es: " + inicioMax + " , y el fin de secuencia es: " + finMax);
+    }
+
+    public static int buscarIni(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] == SEPARADOR)
+            pos++;
+
+
+        return pos;
+
+    }
+
+    public static void imprimerSecuencia(int[] arr) {
+        System.out.println("El arreglo utilizado es: ");
+        System.out.print("int[] arr = {");
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + ",");
+        }
+        System.out.print("}");
+        System.out.println();
+    }
+
+    public static int buscarFin(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] != SEPARADOR) {
+            pos++;
+
+        }
+        return pos - 1;
+
+    }
+
+    public static int contarPares(int[] arr, int ini, int fin, int contadorPares) {
+        contadorPares = 0; //reinicio de  contador
+        for (int i = ini; i <= fin; i++) {
+            if (arr[i] % 2 == 0) {
+                contadorPares++;
+            }
+
+        }
+        return contadorPares;
+    }
+
+
+}
+
+
+
+
