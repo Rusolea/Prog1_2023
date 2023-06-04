@@ -1,0 +1,68 @@
+
+//Implementar un programa que, dado un arreglo de enteros, incremente en 1 cada elemento de una
+//secuencia, si la suma de los elementos de dicha secuencia es par.
+public class arregloExtra2 {
+    public static final int MAX = 12;
+    public static final int SEPARADOR = 0;
+
+    public static void main(String[] args) {
+        int[] arr = {0, 8, 4, -2, 0, 10, 5, 0, 1, 25, 2, 0};
+
+        imprimirArrglo(arr);
+        incrementarEn1(arr);
+    }
+
+    public static void incrementarEn1(int[] arr) {
+        int ini = 0;
+        int fin = -1;
+        while (ini < MAX) {
+            ini = buscarIni(arr, fin + 1);
+            if (ini < MAX) {
+                fin = buscarFin(arr, ini);
+                sumarSecuencia(arr, ini, fin);
+            }
+        }
+        imprimirArrglo(arr);
+    }
+
+    public static int buscarIni(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] == SEPARADOR) {
+            pos++;
+        }
+        return pos;
+    }
+
+    public static int buscarFin(int[] arr, int pos) {
+        while (pos < MAX && arr[pos] != SEPARADOR) {
+            pos++;
+        }
+        return pos - 1;
+    }
+
+    public static void sumarSecuencia(int[] arr, int ini, int fin) {
+        int suma = 0;
+        for (int i = ini; i <= fin; i++) {
+            //suma
+            suma += arr[i];
+        }
+        if (suma % 2 == 0) {
+            incrementarEn1Par(arr, ini, fin);
+
+
+        }
+    }
+
+    public static void incrementarEn1Par(int[] arr, int ini, int fin) {
+        for (int i = ini; i <= fin; i++) {
+            arr[i]++;
+        }
+
+    }
+
+    public static void imprimirArrglo(int[] arr) {
+        System.out.println();
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + ",");
+        }
+    }
+}
