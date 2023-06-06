@@ -1,0 +1,104 @@
+//2do Ejercicio tipo parcial Un dispositivo que lleva un animal bovino
+// en su cuello recolecta datos de un acelerómetro en tres ejes: X Y Z.
+// Cada toma de datos se representa como una secuencia de valores enteros entre 0 y 1023 para cada eje,
+// las secuencias están separadas por -1 (valor no válido para esta lógica).
+// El productor quiere conocer cómo se ha comportado su animal en el transcurso del día y para ello ingresa
+// un patrón de aceleración X Y Z y una cantidad N de repeticiones. Un patrón que se repite una cierta
+// cantidad de veces significa que el animal puede estar pastoreando, caminando, rumiando, etc.
+// Dado un valor N y el patrón X Y Z en un arreglo inicializado con -1 (de tamaño igual al arreglo que tiene los datos),
+// hacer un programa en JAVA que:
+
+//Compruebe si el patrón se repitió N o más veces
+// y si es así que elimine del arreglo las secuencias que se siguen repitiendo luego de la cantidad N.
+
+// Por ejemplo, si tenemos el siguiente arreglo de datos:
+// -1 12 22 44 -1 23 34 55 -1 23 34 55 -1 23 34 55 -1 23 34 57 -1
+// El arreglo patrón X Y Z a analizar es X=23, Y=34, Z=55 y el N=2
+//-1 -1 -1 -1 -1 -1 -1 -1 23 34 55 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+//El arreglo resultante sería
+//-1 12 22 44 -1 23 34 55 -1 23 34 55 -1 -1 23 34 57 -1 -1 -1 -1
+
+public class ejercicioTipoParcial2 {
+    public static final int MAX = 21;
+    public static final int SEPARADOR = -1;
+    public static final int VALORN = 2;
+
+    public static void main(String[] args) {
+        int [] arr = {-1,12,22,44,-1,23,34,55,-1,23,34,55,-1,23,34,55,-1,23,34,57,-1};
+        int [] arrPatron = {-1,-1,-1,-1,-1,-1,-1,-1,23,34,55,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+
+        imprimirArreglo(arr);
+        imprimirArreglo(arrPatron);
+        comprobarPatronRepite(arr, arrPatron);
+
+
+    }
+
+    public static void comprobarPatronRepite(int[] arr, int[] arrPatron){
+        int ini = 0;
+        int fin= -1;
+        int contador = 0;
+        int iniArr = 0;
+        int finArr = -1;
+
+        ini = buscarIni(arrPatron, fin+1);
+        fin = buscarFin(arrPatron, ini);
+        while (iniArr < MAX){
+            iniArr = buscarIni(arr, finArr + 1);
+            if (iniArr < MAX){
+                finArr = buscarFin(arr, iniArr);
+                if (comprobarPatron(arr, iniArr, arrPatron, ini, fin)){
+                   contador++;
+                   if (contador > VALORN){
+                       eliminarSecuencia(arr, iniArr, finArr);
+                   }
+                }
+            }
+        }
+        imprimirArreglo(arr);
+
+
+    }
+
+    public static boolean comprobarPatron(int[] arr, int iniArr,  int[] arrPatron, int ini, int fin){
+        while (ini <= fin && arrPatron[ini] == arr[iniArr]){
+            ini++;
+            iniArr++;
+        }
+        return ini > fin;
+    }
+
+    public static int buscarIni(int[]arr, int pos){
+        while (pos < MAX && arr[pos] == SEPARADOR){
+            pos++;
+        }
+        return pos;
+
+    }
+
+    public static int buscarFin(int[]arr, int  pos){
+        while (pos < MAX && arr[pos] != SEPARADOR){
+            pos++;
+        }
+        return pos -1;
+    }
+    public static void eliminarSecuencia(int[]arr, int pos, int fin){
+        for (int i = pos; i <= fin; i++){
+            corrimientoIzquierda(arr, pos);
+        }
+
+    }
+
+    public static void corrimientoIzquierda(int[]arr, int pos){
+        for (int i = pos; i < MAX-1; i++){
+            arr[i] = arr[i+1];
+        }
+    }
+    public static void imprimirArreglo(int[]arr){
+        System.out. println();
+        for (int i = 0; i < MAX; i++){
+            System.out.print(arr[i] + "|");
+        }
+    }
+}
+
