@@ -1,49 +1,57 @@
-package TP5;
+
+//Con el mismo arreglo del ejercicio anterior informe por pantalla
+//cuantos elementos del mismo están por encima del promedio
+//calculado.
+
 import java.util.Random;
 
-public class Ej3 {
-    public static int MAX = 10;
-    public static final int MAXVALOR = 10;
-    public static final int MINVALOR = 1;
+public class Ej3_1 {
+    public static final int MAX = 10, MAXVALOR = 10, MINVALOR = 1;
+
     public static void main(String[] args) {
-        int arr [] = new int [MAX];
+        int[] arr = new int[MAX];
+
         cargar_arreglo_aleatorio_int(arr);
-        imprimir_arreglo_int(arr);
-        int promedio= obtenerPromedio(arr);
-        System.out.println("El promedio de los valores es:  " + promedio);
-        int mayorapromedio=obtenerMayorAPromedio(arr, promedio);
-        System.out.println("La cantidad de numeros que estan en el arreglo mayor al promedio es: " + mayorapromedio);
+        numerosSobrePromedio(arr);
     }
 
-    
     public static void cargar_arreglo_aleatorio_int(int[] arr) {
         Random r = new Random();
         for (int pos = 0; pos < MAX; pos++) {
             arr[pos] = (r.nextInt(MAXVALOR - MINVALOR + 1) + MINVALOR);
         }
-    }
-    
-    public static void imprimir_arreglo_int(int[] arr) {
-        for (int pos = 0; pos < MAX; pos++) {
-            System.out.println("nombre_arreglo[" + pos + "]=>: " + arr[pos]);
-        }
+        imprimirArreglo(arr);
     }
 
-    public static int obtenerPromedio(int arr[]){
-         int promedio=0;
-        for (int pos=0;pos<MAX;pos++){
-            promedio+=arr[pos];
+    public static void imprimirArreglo(int[] arr) {
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + "|");
         }
-        return promedio/MAX;
+        System.out.println();
     }
-    
-    public static int obtenerMayorAPromedio(int[]arr, int promedio){
-        int acumulador=0;
-        for (int pos=0;pos<MAX;pos++){
-            if(arr[pos]>promedio){
-                acumulador++;
+
+    public static void numerosSobrePromedio(int[] arr) {
+        int suma = 0;
+        double resultado = 0;
+
+        for (int i = 0; i < MAX; i++) {
+            suma += arr[i];
+        }
+        resultado = suma / MAX;
+
+        System.out.println("El promedio es: " + resultado);
+        buscarSisobrePromedio(arr, resultado);
+    }
+
+    public static void buscarSisobrePromedio(int[] arr, double resultado) {
+        int contador = 0;
+
+        for (int i = 0; i < MAX; i++) {
+            if (arr[i] > resultado) {
+                contador++;
             }
         }
-        return acumulador;
+        System.out.println("La cantidad de elementos por encima del promedio es: " + contador);
     }
+    
 }
