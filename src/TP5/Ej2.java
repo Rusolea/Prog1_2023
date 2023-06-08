@@ -1,36 +1,42 @@
-package TP5;
+//Hacer un programa que dado un arreglo ya cargado con 10
+//enteros, calcule el promedio y lo muestre por la consola.
+
 import java.util.Random;
 
-public class Ej2 {
-    public static int MAX = 10;
-    public static final int MAXVALOR = 10;
-    public static final int MINVALOR = 1;
+public class Ej2_1 {
+
+    public static final int MAX = 10, MAXVALOR = 10, MINVALOR = 1;
+
     public static void main(String[] args) {
-        int arr [] = new int [MAX];
+        int[] arr = new int[MAX];
+
         cargar_arreglo_aleatorio_int(arr);
-        imprimir_arreglo_int(arr);
-        int promedio= obtenerPromedio(arr);
-        System.out.println("El promedio de los valores es:  " + promedio);
+        calcularPromedio(arr);
     }
 
-    
     public static void cargar_arreglo_aleatorio_int(int[] arr) {
         Random r = new Random();
         for (int pos = 0; pos < MAX; pos++) {
             arr[pos] = (r.nextInt(MAXVALOR - MINVALOR + 1) + MINVALOR);
         }
+        imprimirArreglo(arr);
     }
-    
-    public static void imprimir_arreglo_int(int[] arr) {
-        for (int pos = 0; pos < MAX; pos++) {
-            System.out.println("nombre_arreglo[" + pos + "]=>: " + arr[pos]);
+
+    public static void imprimirArreglo(int[] arr) {
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + "|");
         }
+        System.out.println();
     }
-    public static int obtenerPromedio(int arr[]){
-        int promedio=0;
-        for (int pos=0;pos<MAX;pos++){
-            promedio+=arr[pos];
+    public static void calcularPromedio(int[] arr) {
+        int suma = 0;
+        int resultado = 0;
+
+        for (int i = 0; i < MAX; i++) {
+            suma += arr[i];
         }
-        return promedio/MAX;
+        resultado = suma / MAX;
+        System.out.print("El promedio es: " + resultado);
     }
+
 }
