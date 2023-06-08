@@ -1,56 +1,50 @@
-package TP5;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Random;
 
-public class Ej4 {
-    public static final int MAX = 10;
+//Buscar un elemento en un arreglo de caracteres ya cargado de
+//tamaño 10 y mostrar la/s posición/es del elemento, en caso de no
+//estar indicarlo también.
+
+import java.util.Random;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+
+public class Ej4_1 {
+    public static final int MAX = 10, MAXVALOR = 10, MINVALOR = 1;
+    public static final char ELEMENTO = 'a';
 
     public static void main(String[] args) {
-        char arr[] = new char [MAX];
-        char valor=0;
+        char[] arr = new char[MAX];
+
         cargar_arreglo_aleatorio_char(arr);
-        imprimir_arreglo_char(arr);
-        valor= obtenerValor(arr, valor);
-        obtenerPos(arr, valor);
-        
+        buscarElemento(arr);
     }
 
+    public static void buscarElemento(char[] arr) {
+        boolean encontrado = false;
 
+        for (int i = 0; i < MAX; i++) {
+            if (arr[i] == ELEMENTO) {
+                System.out.println("El elemento " + "'" + ELEMENTO + "'" + " fue encontrado en la posicion " + i + ".");
+                encontrado = true;
+            }
+        }
+        if (!encontrado) {
+            System.out.println("El elemento " + "'" + ELEMENTO + "'" + " no existe en el arreglo.");
+        }
+    }
 
     public static void cargar_arreglo_aleatorio_char(char[] arr) {
         Random r = new Random();
         for (int pos = 0; pos < MAX; pos++) {
             arr[pos] = (char) (r.nextInt(26) + 'a');
         }
+        imprimirArreglo(arr);
     }
 
-    public static void imprimir_arreglo_char(char[] arr) {
-        for (int pos = 0; pos < MAX; pos++) {
-            System.out.println("nombre_arreglo[" + pos + "]=>: " + arr[pos]);
-        }
-    }
 
-    public static char obtenerValor(char arr[], char valor) { 
-        BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            System.out.println("Ingrese una letra y la buscaremos en el arreglo.");
-            valor = entrada.readLine().charAt(0);
+    public static void imprimirArreglo(char[] arr) {
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + "|");
         }
-
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        return valor;
-    }
-
-    public static void obtenerPos(char[]arr, char valor){
-        
-        for(int pos=0; pos<MAX; pos++){
-            if(arr[pos]==valor){
-                System.out.println(valor + " fue encontrado en la pos ->: " + pos);
-            }
-           
-        }
+        System.out.println();
     }
 }
