@@ -1,0 +1,75 @@
+//10. Hacer un programa que dado un arreglo de enteros de tamaño
+//10 que se encuentra precargado, solicite al usuario un número
+//entero y elimine la primera ocurrencia del número (un número
+//igual) en el arreglo (si existe). Para ello tendrá que buscar la
+//posición y si está, realizar un corrimiento a izquierda (queda una
+//copia de la última posición del arreglo en la anteúltima posición).
+
+import java.util.Random;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
+
+public class Ej10_v1 {
+
+    public static final int MAX = 10, MAXVALOR = 10, MINVALOR = 1;
+
+    public static void main(String[] args) {
+        int[] arr = new int[MAX];
+
+        cargar_arreglo_aleatorio_int(arr);
+        corrimientoColocarNumero(arr);
+
+    }
+
+    public static void corrimientoColocarNumero(int[] arr) {
+        int numero = solicitarNumero();
+        int pos = 0;
+
+        for (int i = pos; i < MAX; i++) {
+            if (arr[i] == numero) {
+                pos = i;
+            }
+        }
+        eliminarOcurrencia(arr, pos);
+    }
+
+
+    public static void eliminarOcurrencia(int[] arr, int pos) {
+        while (pos < MAX - 1) {
+            arr[pos] = arr[pos + 1];
+            pos++;
+
+        }
+        imprimirArreglo(arr);
+    }
+
+    public static int solicitarNumero() {
+        int numero = -1;
+        BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
+            System.out.println("Ingrese un numero: ");
+            numero = Integer.parseInt(entrada.readLine());
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+        return numero;
+    }
+
+    public static void cargar_arreglo_aleatorio_int(int[] arr) {
+        Random r = new Random();
+        for (int pos = 0; pos < MAX; pos++) {
+            arr[pos] = (r.nextInt(MAXVALOR - MINVALOR + 1) + MINVALOR);
+        }
+        imprimirArreglo(arr);
+    }
+
+
+    public static void imprimirArreglo(int[] arr) {
+        for (int i = 0; i < MAX; i++) {
+            System.out.print(arr[i] + "|");
+        }
+        System.out.println();
+    }
+}
