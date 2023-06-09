@@ -1,0 +1,113 @@
+/******************************************************************************
+
+ 2do Ejercicio tipo parcial
+ Un dispositivo que lleva un animal bovino en su cuello recolecta datos de un acelerómetro en tres ejes: X Y Z.
+ Cada toma de datos se representa como una secuencia de valores enteros entre 0 y 1023 para cada eje, las
+ secuencias están separadas por -1 (valor no válido para esta lógica). El productor quiere conocer cómo se ha
+ comportado su animal en el transcurso del día y para ello ingresa un patrón de aceleración X Y Z y una cantidad
+ N de repeticiones. Un patrón que se repite una cierta cantidad de veces significa que el animal puede estar
+ pastoreando, caminando, rumiando, etc. Dado un valor N y el patrón X Y Z en un arreglo inicializado con -1 (de
+ tamaño igual al arreglo que tiene los datos), hacer un programa en JAVA que:
+
+ - Compruebe si el patrón se repitió N o más veces y si es así que elimine del arreglo las secuencias que se
+ siguen repitiendo luego de la cantidad N.
+ *******************************************************************************/
+
+
+public class ejercicioTipoParcial2 {
+    public static final int MAX = 25, SEPARADOR = -1, NREPETICIONES = 3
+            ;
+
+    public static void main(String[] args) {
+        int[] arr = {-1, 12, 22, 44, -1, 23, 34, 55, -1, 23, 34, 55, -1, 23, 34, 55, -1, 23, 34, 55, -1, 23, 34, 55, -1};
+        int[] arrPatron = {-1, -1, -1, -1, -1, -1, -1, -1, 23, 34, 55, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,};
+
+        imprimirSecuencia(arr);
+        imprimirSecuencia(arrPatron);
+        comprobarPatron(arr, arrPatron);
+        imprimirSecuencia(arr);
+
+    }
+
+    public static void comprobarPatron(int[] arr, int[] arrPatron) {
+        int iniPatron = 0;
+        int finPatron = -1;
+        int iniArr = 0;
+        int finArr = -1;
+        int tamanioArr = 0;
+        int tamanioPatron = 0;
+        int contador = 0;
+
+        iniPatron = buscarIni(arrPatron, finPatron + 1);
+        finPatron = buscarFin(arrPatron, iniPatron);
+        tamanioPatron = (finPatron - iniPatron) + 1;
+        while (iniArr < MAX) {
+            iniArr = buscarIni(arr, finArr + 1);
+            if (iniArr < MAX) {
+                finArr = buscarFin(arr, iniArr);
+            }
+            tamanioArr = (finArr - iniArr) + 1;
+            if (tamanioArr == tamanioPatron)  {
+                if (comprobarIgualdad(arrPatron, iniPatron, finPatron, arr, iniArr)){
+                    contador++;
+                    if (contador >= NREPETICIONES){
+                        eliminarSecuencia(arr, iniArr, finArr);
+                        finArr = iniArr;
+                        imprimirSecuencia(arr);
+                    }
+                }
+            }
+        }
+    }
+    public static void imprimirSecuencia(int[]arreglo){
+        for (int i = 0; i < MAX; i++){
+            System.out.print(arreglo[i]+ "|");
+        }
+        System.out.println();
+    }
+
+    public static void eliminarSecuencia(int[] arreglo, int inicio, int fin){
+        for (int i = inicio; i <= fin; i++)
+            corrimientoIzquierda(arreglo, inicio);
+        }
+
+
+    public static void corrimientoIzquierda(int[] arreglo, int pos){
+        for (int i = pos; i < MAX-1; i++){
+            arreglo[i] = arreglo[i+1];
+        }
+
+    }
+    //Aca habia usado en for pero es mejor While, ya que en el corta cuando un valor es diferencte, el for recorre todos los valores aunque el primero haya sido diferente
+   // public static boolean comprobarIgualdad(int[] arregloPatron, int inicio, int fin, int[] arreglo, int inicioArreglo ){
+       // for (int i = inicio; i <= fin; i++){
+           // if (arregloPatron[i] == arreglo[inicioArreglo]){
+                //inicioArreglo++;
+
+            //}
+       // }
+      //eturn inicio > fin;
+    //}
+    public static boolean comprobarIgualdad(int[] arregloPatron, int inicio, int fin, int[] arreglo, int inicioArreglo ){
+        while (inicio <= fin && arregloPatron[inicio] == arreglo[inicioArreglo] ){
+            inicio++;
+            inicioArreglo++;
+        }
+        return inicio > fin;
+    }
+
+
+    public static int buscarIni(int[] arreglo, int ini) {
+        while (ini < MAX && arreglo[ini] == SEPARADOR) {
+            ini++;
+        }
+        return ini;
+    }
+
+    public static int buscarFin(int[] arreglo, int fin) {
+        while (fin < MAX && arreglo[fin] != SEPARADOR) {
+            fin++;
+        }
+        return fin - 1;
+    }
+}
