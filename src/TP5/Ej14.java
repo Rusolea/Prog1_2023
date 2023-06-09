@@ -1,4 +1,5 @@
-package TP5;
+//14. Hacer un programa que elimine los valores pares en un arreglo
+//de tamaño MAX=10.
 
 public class Ej14 {
     public static int MAX = 10;
